@@ -214,7 +214,7 @@ export function NichesSection() {
               speed={38}
               direction={1}
               reduced={reduced}
-              size="font-display text-[clamp(1.6rem,5vw,3.6rem)] leading-none"
+              size="font-display text-[clamp(1rem,2.3vw,1.75rem)] leading-none"
             />
           </motion.div>
         </motion.div>
