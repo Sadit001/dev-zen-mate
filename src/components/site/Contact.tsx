@@ -134,7 +134,6 @@ export function Contact() {
                       Book a Call
                     </motion.span>
                   </motion.button>
-                </Magnetic>
                 </motion.span>
               </span>
 
