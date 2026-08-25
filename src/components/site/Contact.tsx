@@ -237,7 +237,7 @@ export function Contact() {
         )}
       </AnimatePresence>
 
-      <div className="relative mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 border-t border-border/60 px-4 py-6 text-sm text-muted-foreground sm:flex-row sm:px-6">
+      <div className="relative z-0 mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-6 text-sm text-muted-foreground sm:flex-row sm:px-6">
         <p>© {new Date().getFullYear()} DevCave Studio</p>
         <ul className="flex gap-6">
           {["Instagram", "LinkedIn", "X"].map((s) => (
