@@ -13,6 +13,9 @@ import { TextReveal } from "./motion-primitives";
 const layerOne = ["Restaurant", "Cafe", "Homebuilder", "Medical Tech"];
 const layerTwo = ["Real Estate", "Influencer", "Agencys", "Courses", "Agriculture", "Legal"];
 
+/* stable, intentional light/dark rhythm keyed to the niche name */
+const darkNiches = new Set(["Homebuilder", "Influencer", "Agriculture"]);
+
 const edgeMask =
   "linear-gradient(to right, transparent, black 12%, black 88%, transparent)";
 
