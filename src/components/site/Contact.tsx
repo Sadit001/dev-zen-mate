@@ -10,7 +10,7 @@ import {
 } from "motion/react";
 import { SunMark } from "./SunMark";
 import { WebGLBackdrop } from "./webgl/WebGLBackdrop";
-import { Magnetic } from "./motion-primitives";
+
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -30,6 +30,7 @@ function Letter({ char, index, progress }: { char: string; index: number; progre
 export function Contact() {
   const trackRef = useRef<HTMLDivElement>(null);
   const wordRef = useRef<HTMLDivElement>(null);
+  const formWrapRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ["start start", "end end"] });
   const p = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.4 });
@@ -48,7 +49,17 @@ export function Contact() {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
-  useMotionValueEvent(p, "change", (v) => setDropped(v > 0.76));
+  useMotionValueEvent(p, "change", (v) => {
+    setDropped(v > 0.76);
+    // scrolling back up: gently close the form if the user hasn't typed anything
+    if (v < 0.72) {
+      const fields = formWrapRef.current?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+        "input, textarea",
+      );
+      const isEmpty = !fields || Array.from(fields).every((f) => f.value.trim() === "");
+      if (isEmpty) setFormOpen(false);
+    }
+  });
 
   // the "I" IS the button: it drops first, then morphs into a pill (px, derived from word size)
   const barY = useTransform(p, [0.34, 0.6], [0, unit * 1.05]);
@@ -104,7 +115,6 @@ export function Contact() {
                   style={{ opacity: iOpacity, y: iEnter }}
                   className="pointer-events-auto absolute top-0 left-1/2 z-30 flex leading-none"
                 >
-                <Magnetic strength={dropped ? 0.3 : 0}>
                   <motion.button
                     type="button"
                     onClick={() => dropped && setFormOpen((v) => !v)}
@@ -117,8 +127,7 @@ export function Contact() {
                       borderRadius: barR,
                       rotate: barRotate,
                     }}
-                    whileHover={{ scale: dropped ? 1.05 : 1 }}
-                    whileTap={{ scale: dropped ? 0.95 : 1 }}
+                    whileTap={{ scale: dropped ? 0.97 : 1 }}
                     transition={{ type: "spring", stiffness: 320, damping: 18 }}
                     className={`shine relative grid origin-top place-items-center overflow-hidden bg-ink text-primary-foreground ${
                       dropped ? "cursor-pointer" : "pointer-events-none"
@@ -136,7 +145,6 @@ export function Contact() {
                       Book a Call
                     </motion.span>
                   </motion.button>
-                </Magnetic>
                 </motion.span>
               </span>
 
@@ -147,7 +155,7 @@ export function Contact() {
           </motion.div>
 
           {/* drop-down contact form */}
-          <div className="mt-[24vh] w-full max-w-lg">
+          <div ref={formWrapRef} className="relative z-40 mt-[18vh] w-full max-w-lg">
             <AnimatePresence mode="wait">
               {formOpen && (
                 <motion.form
