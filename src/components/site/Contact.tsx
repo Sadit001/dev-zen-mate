@@ -90,7 +90,7 @@ export function Contact() {
       </div>
 
       {/* scroll track drives the BUILD reveal + letter drop */}
-      <div ref={trackRef} className="relative h-[260vh]">
+      <div ref={trackRef} className="relative z-30 h-[260vh]">
         <div className="sticky top-0 flex h-screen flex-col items-center justify-center px-4">
           <motion.div
             animate={{ y: [0, -10, 0] }}
