@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import { motion, useMotionTemplate, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { Reveal } from "./Reveal";
 import {
   Counter,
@@ -225,33 +225,54 @@ export function Work() {
 }
 
 export function Journal() {
+  const ref = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const p = useSpring(scrollYProgress, { stiffness: 80, damping: 26, mass: 0.4 });
+  const progress = reduced ? scrollYProgress : p;
+
+  // Scroll-linked gradient: page background at top, sunrise colors rising from bottom
+  const skyStop = useTransform(progress, [0, 0.45, 1], ["120%", "95%", "55%"]);
+  const peachStop = useTransform(progress, [0, 0.45, 1], ["150%", "120%", "85%"]);
+  const bg = useMotionTemplate`linear-gradient(180deg, var(--background) 0%, var(--background) 45%, var(--sky) ${skyStop}, var(--peach) ${peachStop})`;
+
   return (
-    <section id="journal" className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
-      <Reveal>
-        <SectionLabel>Journal</SectionLabel>
-      </Reveal>
-      <Depth3D rotate={10} depth={200} className="mt-8">
-      <div className="border-t border-border">
-        {journal.map((p, i) => (
-          <ScrollSlide key={p.title} from={i % 2 === 0 ? -70 : 70}>
-            <a
-              href="#journal"
-              className="group flex flex-col gap-2 border-b border-border py-7 transition-colors hover:bg-secondary/50 sm:flex-row sm:items-baseline sm:justify-between"
-            >
-              <h3 className="max-w-2xl text-[1.35rem] leading-snug transition-transform duration-500 group-hover:translate-x-3">
-                {p.title}
-              </h3>
-              <span className="flex items-center gap-3 text-sm text-muted-foreground">
-                {p.date}
-                <span className="inline-block translate-x-[-6px] opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
-                  →
-                </span>
-              </span>
-            </a>
-          </ScrollSlide>
-        ))}
+    <motion.section
+      ref={ref}
+      id="journal"
+      className="relative py-24"
+      style={{ background: bg }}
+    >
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <Reveal>
+          <SectionLabel>Journal</SectionLabel>
+        </Reveal>
+        <Depth3D rotate={10} depth={200} className="mt-8">
+          <div className="border-t border-border">
+            {journal.map((p, i) => (
+              <ScrollSlide key={p.title} from={i % 2 === 0 ? -70 : 70}>
+                <a
+                  href="#journal"
+                  className="group flex flex-col gap-2 border-b border-border py-7 transition-colors hover:bg-secondary/50 sm:flex-row sm:items-baseline sm:justify-between"
+                >
+                  <h3 className="max-w-2xl text-[1.35rem] leading-snug transition-transform duration-500 group-hover:translate-x-3">
+                    {p.title}
+                  </h3>
+                  <span className="flex items-center gap-3 text-sm text-muted-foreground">
+                    {p.date}
+                    <span className="inline-block translate-x-[-6px] opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
+                      →
+                    </span>
+                  </span>
+                </a>
+              </ScrollSlide>
+            ))}
+          </div>
+        </Depth3D>
       </div>
-      </Depth3D>
-    </section>
+    </motion.section>
   );
 }

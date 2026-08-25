@@ -84,7 +84,7 @@ export function Contact() {
   }
 
   return (
-    <footer id="contact" className="sunrise-bg grain-overlay relative mt-10">
+    <footer id="contact" className="sunrise-bg grain-overlay relative">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <WebGLBackdrop className="absolute inset-0 opacity-40" />
       </div>
