@@ -6,6 +6,7 @@ import { Nav } from "@/components/site/Nav";
 import { Hero } from "@/components/site/Hero";
 import { Awards, Testimonials, Stats, Work, Journal } from "@/components/site/Sections";
 import { Niches } from "@/components/site/Niches";
+import { NichesSection } from "@/components/site/NichesSection";
 import { Projects } from "@/components/site/Projects";
 import { Contact } from "@/components/site/Contact";
 import { ScrollProgress } from "@/components/site/motion-primitives";
