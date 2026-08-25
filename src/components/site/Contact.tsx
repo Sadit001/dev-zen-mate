@@ -49,7 +49,17 @@ export function Contact() {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
-  useMotionValueEvent(p, "change", (v) => setDropped(v > 0.76));
+  useMotionValueEvent(p, "change", (v) => {
+    setDropped(v > 0.76);
+    // scrolling back up: gently close the form if the user hasn't typed anything
+    if (v < 0.72) {
+      const fields = formWrapRef.current?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+        "input, textarea",
+      );
+      const isEmpty = !fields || Array.from(fields).every((f) => f.value.trim() === "");
+      if (isEmpty) setFormOpen(false);
+    }
+  });
 
   // the "I" IS the button: it drops first, then morphs into a pill (px, derived from word size)
   const barY = useTransform(p, [0.34, 0.6], [0, unit * 1.05]);
