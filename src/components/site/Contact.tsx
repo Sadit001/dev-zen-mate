@@ -144,7 +144,7 @@ export function Contact() {
           </motion.div>
 
           {/* drop-down contact form */}
-          <div className="mt-[24vh] w-full max-w-lg">
+          <div ref={formWrapRef} className="relative z-40 mt-[18vh] w-full max-w-lg">
             <AnimatePresence mode="wait">
               {formOpen && (
                 <motion.form
