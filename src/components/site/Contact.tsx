@@ -104,7 +104,6 @@ export function Contact() {
                   style={{ opacity: iOpacity, y: iEnter }}
                   className="pointer-events-auto absolute top-0 left-1/2 z-30 flex leading-none"
                 >
-                <Magnetic strength={dropped ? 0.3 : 0}>
                   <motion.button
                     type="button"
                     onClick={() => dropped && setFormOpen((v) => !v)}
