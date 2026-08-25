@@ -90,7 +90,7 @@ export function Contact() {
       </div>
 
       {/* scroll track drives the BUILD reveal + letter drop */}
-      <div ref={trackRef} className="relative h-[260vh]">
+      <div ref={trackRef} className="relative z-30 h-[260vh]">
         <div className="sticky top-0 flex h-screen flex-col items-center justify-center px-4">
           <motion.div
             animate={{ y: [0, -10, 0] }}
@@ -237,7 +237,7 @@ export function Contact() {
         )}
       </AnimatePresence>
 
-      <div className="relative mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 border-t border-border/60 px-4 py-6 text-sm text-muted-foreground sm:flex-row sm:px-6">
+      <div className="relative z-0 mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-6 text-sm text-muted-foreground sm:flex-row sm:px-6">
         <p>© {new Date().getFullYear()} DevCave Studio</p>
         <ul className="flex gap-6">
           {["Instagram", "LinkedIn", "X"].map((s) => (
