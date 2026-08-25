@@ -180,7 +180,7 @@ export function NichesSection() {
         >
           <motion.div
             className="[transform-style:preserve-3d]"
-            style={reduced ? undefined : { y: rowOneY, z: rowOneZ }}
+            style={(reduced ? {} : { y: rowOneY, z: rowOneZ }) as never}
           >
             <MarqueeRow
               items={layerOne}
@@ -193,7 +193,7 @@ export function NichesSection() {
 
           <motion.div
             className="mt-3 [transform-style:preserve-3d] sm:mt-6"
-            style={reduced ? undefined : { y: rowTwoY, z: rowTwoZ }}
+            style={(reduced ? {} : { y: rowTwoY, z: rowTwoZ }) as never}
           >
             <MarqueeRow
               items={layerTwo}
