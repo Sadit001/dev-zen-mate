@@ -59,6 +59,7 @@ function Index() {
         <Testimonials />
         <Stats />
         <Niches />
+        <NichesSection />
         <Work />
         <Projects />
         <Journal />
