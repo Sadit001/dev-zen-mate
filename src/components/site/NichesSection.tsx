@@ -60,7 +60,9 @@ function MarqueeRow({
           if (prev.length < 2) return prev;
           const i = Math.floor(Math.random() * (prev.length - 1));
           const next = [...prev];
-          [next[i], next[i + 1]] = [next[i + 1], next[i]];
+          const a = next[i] as string;
+          next[i] = next[i + 1] as string;
+          next[i + 1] = a;
           return next;
         });
         schedule();
