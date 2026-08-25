@@ -106,21 +106,32 @@ function MarqueeRow({
         style={reduced ? undefined : { transform: "translate3d(0,0,0)" }}
       >
         {loop.map((copy, c) =>
-          copy.map((name, i) => (
-            <motion.span
-              key={`${c}-${name}`}
-              layout={!reduced}
-              transition={{ type: "spring", stiffness: 55, damping: 18, mass: 0.7 }}
-              className={`group flex shrink-0 items-baseline gap-[clamp(1.5rem,4vw,3.5rem)] px-[clamp(0.75rem,2vw,1.75rem)] ${size}`}
-            >
-              <span className="text-muted-foreground/85 transition-all duration-500 ease-out hover:text-foreground hover:opacity-100 hover:[transform:scale(1.04)] motion-reduce:transition-none">
-                {name}
-              </span>
-              <span aria-hidden className="text-sun/60 text-[0.35em] leading-none">
-                {i % 2 === 0 ? "◆" : "—"}
-              </span>
-            </motion.span>
-          )),
+          copy.map((name) => {
+            const dark = darkNiches.has(name);
+            return (
+              <motion.span
+                key={`${c}-${name}`}
+                layout={!reduced}
+                transition={{ type: "spring", stiffness: 55, damping: 18, mass: 0.7 }}
+                className="shrink-0 px-[clamp(0.4rem,1.2vw,1rem)]"
+              >
+                <span
+                  className={[
+                    "flex items-center justify-center rounded-full border whitespace-nowrap",
+                    "px-[clamp(1.1rem,3vw,2.6rem)] py-[clamp(0.55rem,1.4vw,1.05rem)]",
+                    "font-light transition-[transform,opacity,border-color] duration-500 ease-out",
+                    "hover:[transform:scale(1.025)] motion-reduce:transition-none",
+                    dark
+                      ? "border-ink/70 bg-ink text-background"
+                      : "border-ink/12 bg-background/85 text-ink/85 hover:text-ink",
+                    size,
+                  ].join(" ")}
+                >
+                  {name}
+                </span>
+              </motion.span>
+            );
+          }),
         )}
       </div>
     </div>
