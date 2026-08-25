@@ -98,7 +98,7 @@ export function Awards() {
 
       <div ref={ref} className="mt-12 [perspective:1400px] [perspective-origin:50%_35%]">
         <motion.div className="[transform-style:preserve-3d] will-change-transform" style={style as never}>
-          <article className="surface-card grain-overlay relative overflow-hidden bg-[image:var(--gradient-dawn)] p-8 sm:p-14 lg:p-20">
+          <article className="surface-card grain-overlay relative overflow-hidden bg-[image:var(--gradient-sky-blue)] p-8 sm:p-14 lg:p-20">
             <span
               aria-hidden
               className="pointer-events-none absolute inset-0 rounded-[inherit]"
