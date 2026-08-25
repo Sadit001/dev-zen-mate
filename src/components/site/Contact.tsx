@@ -10,7 +10,7 @@ import {
 } from "motion/react";
 import { SunMark } from "./SunMark";
 import { WebGLBackdrop } from "./webgl/WebGLBackdrop";
-import { Magnetic } from "./motion-primitives";
+
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
